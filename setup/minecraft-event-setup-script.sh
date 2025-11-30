@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 TARGET_DIR="/Users/$USER/MineEnv-1-18"
-SETUP_DIR="$(pwd)/setup"
+SETUP_DIR="$(pwd)"
 SEARCH_ROOT="/Users/$USER"
 
 spinner() {
