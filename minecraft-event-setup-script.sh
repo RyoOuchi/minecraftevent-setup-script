@@ -63,7 +63,7 @@ if [ -d "src" ]; then
     if [[ "$BACKUP_SRC" == "y" || "$BACKUP_SRC" == "Y" ]]; then
         ZIP_NAME="MineEnv-src-backup-$(date +%Y%m%d%H%M%S).zip"
         zip -r "$HOME/Desktop/$ZIP_NAME" src >/dev/null
-        mkdir "/Users/$USER/tmp/minecraft-event/"
+        mkdir -p "/Users/$USER/tmp/minecraft-event/"
         rm -rf "/Users/$USER/tmp/minecraft-event/src"
         cp -R src "/Users/$USER/tmp/minecraft-event/src"
         echo "src をバックアップしました。"
