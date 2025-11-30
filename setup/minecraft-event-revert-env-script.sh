@@ -71,7 +71,7 @@ fi
 
 rm -rf "src"
 rm "build.gradle"
-cp "$TMP_DIR/src" .
+cp -R "$TMP_DIR/src" .
 cp "$TMP_DIR/build.gradle" .
 
 cat "$SETUP_DIR/ascii-art-final.txt"
