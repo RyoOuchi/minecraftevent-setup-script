@@ -74,6 +74,8 @@ rm "build.gradle"
 cp -R "$TMP_DIR/src" .
 cp "$TMP_DIR/build.gradle" .
 
+rm -rf "/Users/$USER/tmp/minecraft-event/"
+
 cat "$SETUP_DIR/ascii-art-final.txt"
 
 echo "IntelliJ を起動しています..."
