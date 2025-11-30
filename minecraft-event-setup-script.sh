@@ -63,9 +63,9 @@ if [ -d "src" ]; then
     if [[ "$BACKUP_SRC" == "y" || "$BACKUP_SRC" == "Y" ]]; then
         ZIP_NAME="MineEnv-src-backup-$(date +%Y%m%d%H%M%S).zip"
         zip -r "$HOME/Desktop/$ZIP_NAME" src >/dev/null
-        mkdir "/tmp/minecraft-event/"
-        rm -rf "/tmp/minecraft-event/src"
-        cp -R src "/tmp/minecraft-event/src"
+        mkdir "/Users/$USER/tmp/minecraft-event/"
+        rm -rf "/Users/$USER/tmp/minecraft-event/src"
+        cp -R src "/Users/$USER/tmp/minecraft-event/src"
         echo "src をバックアップしました。"
     fi
 fi
@@ -76,7 +76,7 @@ if [ -f "build.gradle" ]; then
     if [[ "$BACKUP_GRADLE" == "y" || "$BACKUP_GRADLE" == "Y" ]]; then
         ZIP_NAME="MineEnv-gradle-backup-$(date +%Y%m%d%H%M%S).zip"
         zip "$HOME/Desktop/$ZIP_NAME" build.gradle >/dev/null
-        cp build.gradle "/tmp/minecraft-event/build.gradle"
+        cp build.gradle "/Users/$USER/tmp/minecraft-event/build.gradle"
         echo "build.gradle をバックアップしました。"
     fi
 fi
