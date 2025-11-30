@@ -3,6 +3,12 @@
 TARGET_DIR="/Users/$USER/MineEnv-1-18"
 SETUP_DIR="$(cd "$(dirname "$0")" && pwd)"
 SEARCH_ROOT="/Users/$USER"
+TMP_DIR="/Users/$USER/tmp/minecraft-event"
+
+if [ ! -d "$TMP_DIR" ]; then
+    echo "src を保存していません。"
+    exit 1
+fi
 
 spinner() {
     local pid=$1
@@ -50,3 +56,26 @@ else
     fi
     echo "MineEnv-1-18 が見つかりました。"
 fi
+
+echo "復帰を始めます。"
+
+if [ -d "src" ]; then
+    printf "イベント src フォルダをバックアップしますか？ (y/N): "
+    read -r BACKUP_SRC
+    if [[ "$BACKUP_SRC" == "y" || "$BACKUP_SRC" == "Y" ]]; then
+        ZIP_NAME="event-src-backup-$(date +%Y%m%d%H%M%S).zip"
+        zip -r "$HOME/Desktop/$ZIP_NAME" src >/dev/null
+        echo "イベント src をバックアップしました。"
+    fi
+fi
+
+rm -rf "src"
+rm "build.gradle"
+cp "$TMP_DIR/src" .
+cp "$TMP_DIR/build.gradle" .
+
+cat "$SETUP_DIR/ascii-art-final.txt"
+
+echo "IntelliJ を起動しています..."
+
+open -a "IntelliJ IDEA CE.app" "$TARGET_DIR"
