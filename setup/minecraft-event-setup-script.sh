@@ -24,19 +24,21 @@ else
     echo "時間がかかる場合があります。"
     echo "検索ルート: $SEARCH_ROOT"
 
+    TMP_FILE=$(mktemp)
+
     {
         FOUND_DIR=$(find "$SEARCH_ROOT" -type f -name "build.gradle" \
             -path "*/MineEnv-1-18/*" 2>/dev/null \
             | sed 's#/build.gradle##' \
             | head -n 1)
-        echo "$FOUND_DIR" > /tmp/mineenv_found_dir.txt
+        echo "$FOUND_DIR" > "$TMP_FILE"
     } &
 
     FIND_PID=$!
     spinner $FIND_PID
 
-    FOUND_DIR=$(cat /tmp/mineenv_found_dir.txt)
-    rm /tmp/mineenv_found_dir.txt
+    FOUND_DIR=$(cat "$TMP_FILE")
+    rm "$TMP_FILE"
 
     if [ -n "$FOUND_DIR" ]; then
         echo "ディレクトリを発見: $FOUND_DIR"
@@ -48,6 +50,7 @@ else
     fi
     echo "MineEnv-1-18 が見つかりました。"
 fi
+
 echo "決起会のセットアップを開始します。"
 printf "MineEnv-1-18 ディレクトリを変更してもよろしいですか？ (y/N): "
 read -r ANSWER
