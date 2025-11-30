@@ -57,6 +57,41 @@ if [[ "$ANSWER" != "y" && "$ANSWER" != "Y" ]]; then
     exit 0
 fi
 
+if [ -d "src" ]; then
+    printf "src フォルダをバックアップしますか？ (y/N): "
+    read -r BACKUP_SRC
+    if [[ "$BACKUP_SRC" == "y" || "$BACKUP_SRC" == "Y" ]]; then
+        ZIP_NAME="MineEnv-src-backup-$(date +%Y%m%d%H%M%S).zip"
+        zip -r "$HOME/Desktop/$ZIP_NAME" src >/dev/null
+        mkdir "/tmp/minecraft-event/"
+        rm -rf "/tmp/minecraft-event/src"
+        cp -R src "/tmp/minecraft-event/src"
+        echo "src をバックアップしました。"
+    fi
+fi
 
+if [ -f "build.gradle" ]; then
+    printf "build.gradle をバックアップしますか？ (y/N): "
+    read -r BACKUP_GRADLE
+    if [[ "$BACKUP_GRADLE" == "y" || "$BACKUP_GRADLE" == "Y" ]]; then
+        ZIP_NAME="MineEnv-gradle-backup-$(date +%Y%m%d%H%M%S).zip"
+        zip "$HOME/Desktop/$ZIP_NAME" build.gradle >/dev/null
+        cp build.gradle "/tmp/minecraft-event/build.gradle"
+        echo "build.gradle をバックアップしました。"
+    fi
+fi
+
+rm -rf "src"
+rm "build.gradle"
+unzip "$SETUP_DIR/src.zip" >/dev/null
+
+mkdir "src/main/java/com/example/examplemod/EditHere"
+mkdir -p "src/main/resources/data/examplemod/loot_tables/blocks"
+mkdir -p "src/main/resources/data/examplemod/recipes"
+mkdir -p "src/main/resources/data/minecraft/tags/items"
+cp "$SETUP_DIR/build.gradle" .
 
 cat "$SETUP_DIR/ascii-art.txt"
+echo "IntelliJ を起動しています..."
+
+open -a "IntelliJ IDEA CE.app" "$TARGET_DIR"
